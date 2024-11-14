@@ -559,8 +559,7 @@ public class AddingRoom implements ActionListener {
         inputPanel.add(new JLabel("Height:"));
         inputPanel.add(heightField);
 
-        int result = JOptionPane.showConfirmDialog(null, inputPanel,
-                "Enter Room Dimensions", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, inputPanel, "Enter Room Dimensions", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             try {
                 int panelWidth = Integer.parseInt(widthField.getText());
