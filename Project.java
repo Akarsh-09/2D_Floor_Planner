@@ -248,8 +248,6 @@ public class Project implements ActionListener{
     }
 
     public static void main(String[] args) {
-        JPanel j1=new JPanel();
-        j1.setPreferredSize(new Dimension(100, 100));
         Project p1 = new Project();
     }
 
@@ -260,18 +258,41 @@ public class Project implements ActionListener{
             System.out.println("Hello");
         }
     }
-
+    
     public void Addroom(int l, int b, String roomType)
     {
         rooms.add(new JPanel());
         rooms.get(roomNum).setPreferredSize(new Dimension(l, b));
         // rooms.get(roomNum).setBounds(100,100,l,b);
         rooms.get(roomNum).setVisible(true);
+        switch (roomType){
+            case "Bedroom":
+            rooms.get(roomNum).setBackground(Color.GREEN);
+            break;
+            case "Bathroom":
+            rooms.get(roomNum).setBackground(Color.BLUE);
+            break;
+            case "Kitchen":
+            rooms.get(roomNum).setBackground(Color.RED);
+            break;
+            case "Dining Room":
+            rooms.get(roomNum).setBackground(Color.ORANGE);
+            break;
+            case "Drawing Room":
+            rooms.get(roomNum).setBackground(Color.YELLOW);
+            break;
+        }
         
         
         
         rooms.get(roomNum).setBorder(BorderFactory.createLineBorder(Color.black, 2));
         floor.add(rooms.get(roomNum),Integer.valueOf(2));
         roomNum++;
+
+
+
+
+        floor.revalidate();
+        floor.repaint();
     }
 }
