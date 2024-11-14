@@ -1,42 +1,38 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class Project{
+public class Project2 implements ActionListener {
 
     public JFrame frame;
-    public JPanel canvasPanel;    // The panel where the floor plan is to be drawn
-    public JPanel controlPanel;   // The panel where the controls buttons will be added
+    public JPanel canvasPanel;
+    public JPanel controlPanel;
     public ArrayList<JPanel> rooms = new ArrayList<JPanel>();
     public JButton newRoom;
-    public JPanel defaultroom;
+    public JLayeredPane floor;
     int roomNum = 0;
-    
 
-    public Project() {
+    public Project2() {
 
         frame = new JFrame("2D Floor Planner");
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Maximum frame = ~1280x750
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         controlPanel = new JPanel();
         canvasPanel = new JPanel();
 
-        //Canvas Panel
-
+        // Canvas Panel
         canvasPanel.setBounds(333, 10, 935, 725);
         canvasPanel.setBackground(Color.lightGray);
         canvasPanel.setLayout(null);
 
-        //Control Panel
-
+        // Control Panel
         Border border = BorderFactory.createLineBorder(Color.black, 4);
-
         controlPanel.setBounds(10, 10, 313, 725);
         controlPanel.setBackground(new Color(0xffdc44));
 
@@ -76,50 +72,11 @@ public class Project{
         fixturePanel.setBounds(30, 622, 253, 92);
         fixturePanel.setBackground(new Color(0xFFFFFF));
 
-        defaultroom=new JPanel();
-        defaultroom.setBounds(100, 100, 600, 600);
-        defaultroom.setBorder(border);
-        defaultroom.setLayout(new FlowLayout());
-        canvasPanel.add(defaultroom);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        floor = new JLayeredPane();
+        floor.setBorder(border);
+        floor.setBounds(70, 70, 400, 400);
+        floor.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        canvasPanel.add(floor);
 
         newRoom = new JButton("New Room");
         newRoom.setBounds(20, 20, 150, 50);
@@ -134,30 +91,12 @@ public class Project{
 
                     JTextField text1 = new JTextField();
                     JTextField text2 = new JTextField();
-                    // StringBuilder roomtype = new StringBuilder("Bedroom");
 
-                    String roomName[] = { "Bedroom", "Bathroom", "Kitchen", "Dining Room", "Drawing Room"};
-
+                    String roomName[] = {"Bedroom", "Bathroom", "Kitchen", "Dining Room", "Drawing Room"};
                     JComboBox roomType = new JComboBox(roomName);
 
-                    // roomType.addItemListener(new ItemListener() {
-
-                    //     @Override
-                    //     public void itemStateChanged(ItemEvent e) {
-
-                            
-                    //         // roomtype = new StringBuilder(roomType.getSelectedItem().toString());
-                    //     }
-                    // });
-
                     roomType.setBounds(50, 25, 200, 35);
-
                     dialog.add(roomType);
-                    
-
-
-
-
 
                     text1.setBounds(100, 80, 100, 30);
                     text2.setBounds(100, 120, 100, 30);
@@ -171,7 +110,6 @@ public class Project{
                     JButton sub = new JButton("Submit");
                     sub.setBounds(120, 170, 60, 40);
 
-                    
                     sub.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -192,51 +130,10 @@ public class Project{
                     dialog.setLocation(200, 200);
                     dialog.setLayout(null);
                     dialog.setVisible(true);
-
                 }
             }
         });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        controlPanel.setLayout(null);
         controlPanel.add(filePanel);
         controlPanel.add(toolPanel);
         controlPanel.add(roomPanel);
@@ -244,24 +141,36 @@ public class Project{
         controlPanel.add(windowPanel);
         controlPanel.add(furniturePanel);
         controlPanel.add(fixturePanel);
+        controlPanel.setLayout(null);
 
         frame.add(controlPanel);
         frame.add(canvasPanel);
-        frame.setLayout(null);
+
         frame.setVisible(true);
+        frame.setLayout(null);
     }
 
     public static void main(String[] args) {
-        Project p1 = new Project();
+        new Project2();
     }
 
-    public void Addroom(int l, int b, String roomType)
-    {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == newRoom) {
+            System.out.println("Hello");
+        }
+    }
+
+    public void Addroom(int l, int b, String roomType) {
         rooms.add(new JPanel());
-        rooms.get(roomNum).setPreferredSize(new Dimension(l, b));
-        // controlPanel.add(rooms.get(roomNum));
-        defaultroom.add(rooms.get(roomNum));
+        rooms.get(roomNum).setPreferredSize(new Dimension(b, l));
+        rooms.get(roomNum).setVisible(true);
+        
+        rooms.get(roomNum).setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        floor.add(rooms.get(roomNum), Integer.valueOf(2));
         roomNum++;
-        System.out.println(roomType + " - " + l + " " + b);
+
+        floor.revalidate();
+        floor.repaint();
     }
 }

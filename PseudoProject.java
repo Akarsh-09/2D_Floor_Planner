@@ -5,31 +5,42 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class Project{
+public class PseudoProject implements ActionListener{
 
     public JFrame frame;
     public JPanel canvasPanel;    // The panel where the floor plan is to be drawn
     public JPanel controlPanel;   // The panel where the controls buttons will be added
     public ArrayList<JPanel> rooms = new ArrayList<JPanel>();
     public JButton newRoom;
-    public JPanel defaultroom;
+    public JLayeredPane floor;
     int roomNum = 0;
-    
+    int frameWidth;
+    int frameHeight;
 
-    public Project() {
+    public PseudoProject() {
 
         frame = new JFrame("2D Floor Planner");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Maximum frame = ~1280x750
+        frame.setLayout(null);
+
+        frame.setVisible(true);
+
+        frameHeight = frame.getHeight();
+        frameWidth = frame.getWidth();
+        
+        System.out.println(frameHeight);
+        System.out.println(frameWidth);
+
+        // Maximum frame = ~1280x775
 
         controlPanel = new JPanel();
         canvasPanel = new JPanel();
 
         //Canvas Panel
 
-        canvasPanel.setBounds(333, 10, 935, 725);
+        canvasPanel.setBounds((int)((frameWidth - 30) / 4) + 20, 10, (int)(((frameWidth - 30) * 3) / 4), (int)(frameHeight - 20));
         canvasPanel.setBackground(Color.lightGray);
         canvasPanel.setLayout(null);
 
@@ -37,7 +48,8 @@ public class Project{
 
         Border border = BorderFactory.createLineBorder(Color.black, 4);
 
-        controlPanel.setBounds(10, 10, 313, 725);
+        controlPanel.setBounds(10, 10, (int)((frameWidth - 30) / 4), (int)(frameHeight - 20)); //  ((frameWidth - 30) / 4)
+        // controlPanel.setBounds(10, 10, 313, 725); //  ((frameWidth - 30) / 4)
         controlPanel.setBackground(new Color(0xffdc44));
 
         JPanel filePanel = new JPanel();
@@ -76,14 +88,14 @@ public class Project{
         fixturePanel.setBounds(30, 622, 253, 92);
         fixturePanel.setBackground(new Color(0xFFFFFF));
 
-        defaultroom=new JPanel();
-        defaultroom.setBounds(100, 100, 600, 600);
-        defaultroom.setBorder(border);
-        defaultroom.setLayout(new FlowLayout());
-        canvasPanel.add(defaultroom);
+        floor = new JLayeredPane();
+        floor.setBorder(border);
+        floor.setBounds(70,70,400,400);
+        floor.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        canvasPanel.add(floor);
 
 
-
+// Vikrant
 
 
 
@@ -236,7 +248,6 @@ public class Project{
 
 
 
-        controlPanel.setLayout(null);
         controlPanel.add(filePanel);
         controlPanel.add(toolPanel);
         controlPanel.add(roomPanel);
@@ -244,24 +255,44 @@ public class Project{
         controlPanel.add(windowPanel);
         controlPanel.add(furniturePanel);
         controlPanel.add(fixturePanel);
+        controlPanel.setLayout(null);
 
         frame.add(controlPanel);
         frame.add(canvasPanel);
+
         frame.setLayout(null);
+
         frame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        Project p1 = new Project();
+        JPanel j1=new JPanel();
+        j1.setPreferredSize(new Dimension(100, 100));
+        PseudoProject p1 = new PseudoProject();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == newRoom)
+        {
+            System.out.println("Hello");
+        }
     }
 
     public void Addroom(int l, int b, String roomType)
     {
         rooms.add(new JPanel());
-        rooms.get(roomNum).setPreferredSize(new Dimension(l, b));
-        // controlPanel.add(rooms.get(roomNum));
-        defaultroom.add(rooms.get(roomNum));
+        rooms.get(roomNum).setPreferredSize(new Dimension(b, l));
+        // rooms.get(roomNum).setBounds(100,100,l,b);
+        rooms.get(roomNum).setVisible(true);
+        
+        rooms.get(roomNum).setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        floor.add(rooms.get(roomNum),Integer.valueOf(2));
         roomNum++;
+
         System.out.println(roomType + " - " + l + " " + b);
+
+        floor.revalidate();
+        floor.repaint();
     }
 }
