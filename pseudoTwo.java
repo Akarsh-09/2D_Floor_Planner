@@ -572,11 +572,6 @@ public class pseudoTwo implements MouseListener {
         Point new00 = new Point(new01.x, new01.y + p.getHeight());
         Point new10 = new Point(new01.x + p.getWidth(), new01.y + p.getHeight());
         Point new11 = new Point(new01.x + p.getWidth(), new01.y);
-
-        System.out.println(new01.x + " " + new01.y);
-        System.out.println(new11.x + " " + new11.y);
-        System.out.println(new10.x + " " + new10.y);
-        System.out.println(new00.x + " " + new00.y);
         
         for(int i = 0; i < roomNum; i++)
         {
@@ -584,12 +579,6 @@ public class pseudoTwo implements MouseListener {
             Point sec00 = new Point(sec01.x, sec01.y + rooms.get(i).getHeight());
             Point sec10 = new Point(sec01.x + rooms.get(i).getWidth(), sec01.y + rooms.get(i).getHeight());
             Point sec11 = new Point(sec01.x + rooms.get(i).getWidth(), sec01.y);
-
-            System.out.println(sec01.x + " " + sec01.y);
-            System.out.println(sec11.x + " " + sec11.y);
-            System.out.println(sec10.x + " " + sec10.y);
-            System.out.println(sec00.x + " " + sec00.y);
-
             if(new01.x < sec11.x && new01.x > sec01.x && new01.y > sec11.y && new01.y < sec10.y)
             {
                 System.out.println("Yes");
