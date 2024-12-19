@@ -3,16 +3,11 @@ import javax.swing.border.Border;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 // public class PseudoProject implements ActionListener{
-public class PseudoProject{
+public class PseudoProject implements MouseListener {
 
     public JFrame frame;
     public JPanel canvasPanel;
@@ -26,6 +21,9 @@ public class PseudoProject{
     int roomNum = 0;
     int frameWidth;
     int frameHeight;
+    int xCoord = 0;
+    int yCoord = 0;
+    int yCoordMax = 0;
 
     public PseudoProject() {
 
@@ -56,6 +54,7 @@ public class PseudoProject{
         // canvasPanel.setBounds(333, 10, 935, 725);
         canvasPanel.setBackground(Color.lightGray);
         canvasPanel.setBorder(border);
+        canvasPanel.addMouseListener(this);
         canvasPanel.setLayout(null);
 
         //Control Panel
@@ -104,12 +103,14 @@ public class PseudoProject{
         JPanel fixturePanel = new JPanel();
         fixturePanel.setBounds(30, 622, 253, 92);
         fixturePanel.setBackground(new Color(0xFFFFFF));
-        fixturePanel.setBorder(border);
+        fixturePanel.setBorder(border); 
 
         floor = new JLayeredPane();
         floor.setBorder(border);
-        floor.setBounds(70,70,400,400);
-        floor.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        floor.setBounds(70,70,795,585);
+        // floor.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+        floor.setLayout(null);
+        
         canvasPanel.add(floor);
 
 
@@ -154,86 +155,91 @@ public class PseudoProject{
 
         NewPlan = new JButton("New Plan");
         NewPlan.setFocusable(false);
+        NewPlan.setFont(new Font("Serif", Font.PLAIN, 18));
+        NewPlan.setBounds(80, 20, 150, 50);
         // NewPlan.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
         Open = new JButton("Open");
         Open.setFocusable(false);
+        Open.setFont(new Font("Serif", Font.PLAIN, 20));
+        Open.setBounds(80, 90, 150, 50);
+
         Save = new JButton("Save");
         Save.setFocusable(false);
+        Save.setFont(new Font("Serif", Font.PLAIN, 20));
+        Save.setBounds(80, 160, 150, 50);
 
-        NewPlan.setBounds(50, 6, 150, 23);
-        Open.setBounds(50, 35, 150, 23);
-        Save.setBounds(50, 64, 150, 23);
-        filePanel.add(NewPlan);
-        filePanel.add(Open);
-        filePanel.add(Save);
+        controlPanel.add(NewPlan);
+        controlPanel.add(Open);
+        controlPanel.add(Save);
 
-        filePanel.setLayout(null);
+        // filePanel.setLayout(null);
 
-
-
-
-
-
-
-
-
-        newRoom = new JButton("New Room         +");
+        newRoom = new JButton("New Room                     +");
+        newRoom.setFont(new Font("Serif", Font.PLAIN, 20));
         newRoom.setFocusable(false);
-        newRoom.setBounds(20, 31, 200, 40);
+        newRoom.setBounds(30, 230, 250, 50);
         // newRoom.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        roomPanel.add(newRoom);
-        roomPanel.setLayout(null);
-        // newRoom.revalidate();
-        // newRoom.repaint();
+        controlPanel.add(newRoom);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         newRoom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == newRoom) {
-
+                    
                     JDialog dialog = new JDialog(frame, "Room Type");
-
+    
                     JTextField text1 = new JTextField();
                     JTextField text2 = new JTextField();
-                    // StringBuilder roomtype = new StringBuilder("Bedroom");
-
-                    String roomName[] = { "Bedroom", "Bathroom", "Kitchen", "Dining Room", "Drawing Room"};
-
+                        // StringBuilder roomtype = new StringBuilder("Bedroom");
+    
+                    String roomName[] = {"Bedroom", "Bathroom", "Kitchen", "Dining Room", "Drawing Room"};
+    
                     JComboBox roomType = new JComboBox(roomName);
-
-                    // roomType.addItemListener(new ItemListener() {
-
-                    //     @Override
-                    //     public void itemStateChanged(ItemEvent e) {
-
-                            
-                    //         // roomtype = new StringBuilder(roomType.getSelectedItem().toString());
-                    //     }
-                    // });
-
+    
+                        // roomType.addItemListener(new ItemListener() {
+    
+                        //     @Override
+                        //     public void itemStateChanged(ItemEvent e) {
+    
+                                
+                        //         // roomtype = new StringBuilder(roomType.getSelectedItem().toString());
+                        //     }
+                        // });
+    
                     roomType.setBounds(50, 25, 200, 35);
-
-                    dialog.add(roomType);
                     
-
-
-
-
-
-                    text1.setBounds(100, 80, 100, 30);
-                    text2.setBounds(100, 120, 100, 30);
-
+                    dialog.add(roomType);
+                    text1.setBounds(110, 80, 100, 30);
+                    text2.setBounds(110, 120, 100, 30);
+    
                     JLabel l1 = new JLabel("Length");
                     JLabel l2 = new JLabel("Width");
 
                     l1.setBounds(50, 80, 100, 30);
                     l2.setBounds(50, 120, 100, 30);
 
-                    JButton sub = new JButton("Submit");
-                    sub.setBounds(120, 170, 60, 40);
-
-                    
-                    sub.addActionListener(new ActionListener() {
+                    JButton submit = new JButton("Submit");
+                    submit.setBounds(120, 180, 80, 40);
+    
+                        
+                    submit.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             int room_Length = Integer.parseInt(text1.getText());
@@ -242,18 +248,17 @@ public class PseudoProject{
                             dialog.dispose();
                         }
                     });
-
+    
                     dialog.add(text1);
                     dialog.add(text2);
                     dialog.add(l1);
                     dialog.add(l2);
-                    dialog.add(sub);
+                    dialog.add(submit);
 
                     dialog.setSize(300, 300);
                     dialog.setLocation(200, 200);
                     dialog.setLayout(null);
                     dialog.setVisible(true);
-
                 }
             }
         });
@@ -297,13 +302,13 @@ public class PseudoProject{
 
 
 
-        controlPanel.add(filePanel);
-        controlPanel.add(toolPanel);
-        controlPanel.add(roomPanel);
-        controlPanel.add(doorPanel);
-        controlPanel.add(windowPanel);
-        controlPanel.add(furniturePanel);
-        controlPanel.add(fixturePanel);
+        // controlPanel.add(filePanel);
+        // controlPanel.add(toolPanel);
+        // controlPanel.add(roomPanel);
+        // controlPanel.add(doorPanel);
+        // controlPanel.add(windowPanel);
+        // controlPanel.add(furniturePanel);
+        // controlPanel.add(fixturePanel);
         controlPanel.setLayout(null);
 
         frame.add(controlPanel);
@@ -314,7 +319,7 @@ public class PseudoProject{
 
         // newRoom.revalidate();
         // newRoom.repaint();
-        newRoom.setBounds(20, 31, 150, 30);
+        // newRoom.setBounds(20, 31, 150, 30);
 
         frame.setLayout(null);
 
@@ -395,36 +400,128 @@ public class PseudoProject{
 
 
     public static void main(String[] args) {
-        JPanel j1 = new JPanel();
-        j1.setPreferredSize(new Dimension(100, 100));
         PseudoProject p1 = new PseudoProject();
     }
 
-    // @Override
-    // public void actionPerformed(ActionEvent e) {
-    //     if(e.getSource() == newRoom)
-    //     {
-    //         System.out.println("Hello");
-    //     }
-    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        if(e.getSource() == canvasPanel) {
+            for(int i = 0; i < roomNum; i++) {
+                rooms.get(i).setBorder(BorderFactory.createLineBorder(Color.black, 2));
+            }
+            return ;
+        }
+
+        JPanel temppanel = (JPanel)e.getSource();
+
+        for(int i = 0; i < roomNum; i++) {
+            rooms.get(i).setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        }
+
+        temppanel.setBorder(BorderFactory.createLineBorder(new Color(0xADD8E6), 2));
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void Addroom(int l, int b, String roomType)
     {
+        if(xCoord + b > floor.getWidth())
+        {
+            yCoord = yCoordMax;
+            yCoordMax = yCoordMax + l;
+            xCoord = 0;
+        }
+
+
+
+
+
+
+
         rooms.add(new JPanel());
-        rooms.get(roomNum).setPreferredSize(new Dimension(b, l));
+        // rooms.get(roomNum).setPreferredSize(new Dimension(b, l));
+        rooms.get(roomNum).setBounds(xCoord, yCoord, b, l);
+        rooms.get(roomNum).addMouseListener(this);
         rooms.get(roomNum).setVisible(true);
+
+
+        xCoord = xCoord + b;
+        yCoordMax = Math.max(yCoordMax, l);
+
+        
         switch (roomType){
             case "Bedroom":
-            rooms.get(roomNum).setBackground(Color.GREEN);
+            rooms.get(roomNum).setBackground(new Color(0x89E894));
             break;
             case "Bathroom":
-            rooms.get(roomNum).setBackground(Color.BLUE);
+            rooms.get(roomNum).setBackground(new Color(0x87CEFB));
             break;
             case "Kitchen":
-            rooms.get(roomNum).setBackground(Color.RED);
+            rooms.get(roomNum).setBackground(new Color(0xFF474C));
             break;
             case "Dining Room":
-            rooms.get(roomNum).setBackground(Color.ORANGE);
+            rooms.get(roomNum).setBackground(new Color(0xffa500));
             break;
             case "Drawing Room":
             rooms.get(roomNum).setBackground(Color.YELLOW);
@@ -437,7 +534,7 @@ public class PseudoProject{
         floor.add(rooms.get(roomNum),Integer.valueOf(2));
         roomNum++;
 
-        // System.out.println(roomType + " - " + l + " " + b);
+        System.out.println(roomType + " - " + l + " " + b);
 
         floor.revalidate();
         floor.repaint();
