@@ -1,9 +1,6 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import java.util.ArrayList;
 
 public class Icon extends JLabel {
     Point initialClick;
@@ -38,29 +35,19 @@ public class Icon extends JLabel {
                         public void actionPerformed(ActionEvent e) {
                             remIc(pan);
                             setIc(1, pan);
-
                         }
-
                     });
                 }
-
             }
 
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
+            public void mouseClicked(MouseEvent e) {}
             @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
+            public void mouseReleased(MouseEvent e) {}
             @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
+            public void mouseEntered(MouseEvent e) {}
             @Override
-            public void mouseExited(MouseEvent e) {
-            }
+            public void mouseExited(MouseEvent e) {}
         });
 
         this.addMouseMotionListener(new MouseAdapter() {
@@ -79,10 +66,7 @@ public class Icon extends JLabel {
                 Point new10 = new Point(new01.x + ((JLabel) e.getSource()).getWidth(),
                         new01.y + ((JLabel) e.getSource()).getHeight());
 
-                if (new01.x < 0 || new01.y < 0 || new10.x > pan.getWidth()
-                        || pan.getHeight() < new10.y)
-                    ;
-
+                if (new01.x < 0 || new01.y < 0 || new10.x > pan.getWidth() || pan.getHeight() < new10.y);
                 else {
                     ((JLabel) e.getSource()).setLocation(newX, newY);
                 }
@@ -90,7 +74,6 @@ public class Icon extends JLabel {
                 y = getY();
             }
         });
-
     }
 
     void setIc(int rotating, JPanel pan) {
@@ -106,5 +89,4 @@ public class Icon extends JLabel {
     void remIc(JPanel pan) {
         pan.remove(this);
     }
-
 }

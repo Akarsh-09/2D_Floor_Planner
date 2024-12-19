@@ -1,10 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.util.ArrayList;
 
 public class pseudoTwo implements MouseListener {
@@ -49,7 +47,6 @@ public class pseudoTwo implements MouseListener {
         canvasPanel = new JPanel();
 
         // Canvas Panel
-
         canvasPanel.setBounds(((frameWidth - 30) / 4) + 20, 10, (((frameWidth - 30) * 3) / 4), (frameHeight - 50));
         // canvasPanel.setBounds(333, 10, 935, 725);
         canvasPanel.setBackground(Color.lightGray);
@@ -58,7 +55,6 @@ public class pseudoTwo implements MouseListener {
         canvasPanel.setLayout(null);
 
         // Control Panel
-
         controlPanel.setBounds(10, 10, ((frameWidth - 30) / 4), (frameHeight - 50));
         // controlPanel.setBounds(10, 10, 313, 725);
         controlPanel.setBackground(new Color(0xffdc44));
