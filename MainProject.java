@@ -413,19 +413,19 @@ public class MainProject implements MouseListener{
                 JMenuItem East = new JMenuItem("Right");
                 Window.add(East);
 
-                String[] Beds = {"Bed1.png","Bed2.png","Bed3.png","Bed4.png"};
+                String[] Beds = {"Icons/Bed1.png","Icons/Bed2.png","Icons/Bed3.png","Icons/Bed4.png"};
                 IconMenuItem Bed = new IconMenuItem(rightPanel,Beds,"Bed");
                 Furniture.add(Bed);
-                String[] Chairs = {"Chair1.png","Chair2.png","Chair3.png","Chair4.png"};
+                String[] Chairs = {"Icons/Chair1.png","Icons/Chair2.png","Icons/Chair3.png","Icons/Chair4.png"};
                 IconMenuItem Chair = new IconMenuItem(rightPanel,Chairs,"Chair");
                 Furniture.add(Chair);
-                String[] Tables = {"Table1.png","Table2.png","Table3.png","Table4.png"};
+                String[] Tables = {"Icons/Table1.png","Icons/Table2.png","Icons/Table3.png","Icons/Table4.png"};
                 IconMenuItem Table = new IconMenuItem(rightPanel,Tables,"Table");
                 Furniture.add(Table);
-                String[] Sofas = {"Sofa1.png","Sofa2.png","Sofa3.png","Sofa4.png"};
+                String[] Sofas = {"Icons/Sofa1.png","Icons/Sofa2.png","Icons/Sofa3.png","Icons/Sofa4.png"};
                 IconMenuItem Sofa = new IconMenuItem(rightPanel,Sofas,"Sofa");
                 Furniture.add(Sofa);
-                String[] Diningsets = {"Diningset.png","Diningset.png","Diningset.png","Diningset.png"};
+                String[] Diningsets = {"Icons/Diningset.png","Icons/Diningset.png","Icons/Diningset.png","Icons/Diningset.png"};
                 IconMenuItem Diningset = new IconMenuItem(rightPanel,Diningsets,"Diningset");
                 Furniture.add(Diningset);
 
